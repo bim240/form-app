@@ -46,7 +46,10 @@ module.exports = {
         return res.status(404).json({ message: "Invalid Question" });
       }
 
-      if (question.authorId !== req.userId) {
+      var savedQuestion = await Question.findById(questionId);
+
+      console.log();
+      if (String(savedQuestion.authorId) !== String(req.userId)) {
         return res
           .status(403)
           .json({ massage: "You are not author of that question" });
